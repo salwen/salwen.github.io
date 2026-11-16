@@ -679,26 +679,28 @@
   "role": "體驗與功能定位、空間需求、識別及跨單位整合",
   "credit": "Howard 與行政、使用單位、設計與工程合作團隊",
   "images": [
-   "aama.jpg",
-   "kaohsiung.jpg",
-   "kaohsiung-plan.jpg",
-   "team.jpg"
+   "kaohsiung-exterior.jpg",
+   "kaohsiung-render.jpg",
+   "kaohsiung-interior.jpg",
+   "kaohsiung-reception.jpg",
+   "kaohsiung-welcome.jpg",
+   "kaohsiung-guide.jpg"
   ],
   "chapters": [
    {
     "title": "理念：從外到內，讓心境自然延伸。",
     "body": "以「轉衍之韻」為核心——轉化與延伸的氛圍。從建築外觀、過渡空間到室內場域的認知鋪陳，把空間氛圍內化到使用者心裡，讓使用者的心境自然延展至下一個場域，也讓進入正式服務前先有安心與放心的準備。",
-    "image": "kaohsiung.jpg"
+    "image": "kaohsiung-exterior.jpg"
    },
    {
     "title": "外觀：白色建築上的綠色光軌。",
     "body": "在白色建築中導入信義識別的綠色，代表生生不息與對社區、環境的照顧。綠色線條環繞建築中段，象徵起點與延續；夜晚藉燈光形成綠色光軌，像城市中的一道光，讓人感受到愛、關懷與希望。",
-    "image": "kaohsiung.jpg"
+    "image": "kaohsiung-render.jpg"
    },
    {
     "title": "One Team：讓每位同仁都有回家的感覺。",
     "body": "基於信義房屋數位轉型的空間思維，打造信義一體的工作氛圍：任何信義同仁來到行政中心，都能有歸屬與回家的感覺，破除個體、部門與區域運作的藩籬，讓跨部門共用從共同場域感開始。",
-    "image": "aama.jpg"
+    "image": "kaohsiung-guide.jpg"
    },
    {
     "title": "分區與感官：讓功能與舒適各得其所。",
@@ -708,12 +710,12 @@
      "室內植物：減壓、空氣品質與情緒穩定",
      "照明系統：專注、中性與暖光的分區配置"
     ],
-    "image": "kaohsiung-plan.jpg"
+    "image": "kaohsiung-interior.jpg"
    },
    {
     "title": "識別與歡迎牆：把「回家」變成看得見的儀式。",
     "body": "歡迎牆的主要目的為成交會員拍照，理念上傳遞「入厝高雄」——信義為您在高雄找到幸福的家，同時讓每位會員與同仁都有回到高雄行政中心這個家的感受；空間識別系統以「唯心知境」為題，讓識別不只指路，也引導人知覺所處的環境。",
-    "image": "kaohsiung.jpg"
+    "image": "kaohsiung-welcome.jpg"
    },
    {
     "title": "下一個可以驗證的機會。",
@@ -722,14 +724,13 @@
      "照明與分區是否支持成交與作業的專注度？",
      "使用者對歡迎牆與識別的解讀，是否如設計預期？"
     ],
-    "image": "aama.jpg",
+    "image": "kaohsiung-reception.jpg",
     "focus": "策略延伸／待驗證：依既有經驗推演，非已上線功能或既定成果。",
     "hypothesis": true
    }
   ],
   "sources": [
-   "信義房屋高雄行政中心__設計理念＿V1-1_231017.key（空間概念說明 V1-0），頁2、6–14",
-   "prework／工作照片／20240927 AAMA 生態圈交流會"
+   "信義房屋高雄行政中心__設計理念＿V1-1_231017.key（空間概念說明 V1-0），頁2、5–14 及內頁照片"
   ],
   "status": "專案資料與設計成果",
   "short": "高雄行政中心",
