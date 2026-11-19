@@ -84,6 +84,8 @@ function observeReader(){
  if(readerObserver)readerObserver.disconnect();const ratios=new Map();readerObserver=new IntersectionObserver(entries=>{entries.forEach(e=>ratios.set(e.target,e.isIntersecting?e.intersectionRatio:0));if(performance.now()<chapterLockUntil)return;const visible=[...ratios].filter(([,r])=>r>0).sort((a,b)=>b[1]-a[1]);if(visible.length)updateChapter(+visible[0][0].dataset.caseChapter)},{root:readerRoot(),threshold:[0,.15,.35,.6,.8],rootMargin:'-105px 0px -24% 0px'});$$('.chapter').forEach(el=>readerObserver.observe(el));
 }
 function openCase(id,source=null,options={}){
+ if(['network','experiment'].includes(id)&&window.openStoreExperience){window.openStoreExperience(source,{...options,section:id==='network'?2:6});return;}
+ if(id==='zyxel'&&window.openZyxelExperience){window.openZyxelExperience(source,options);return;}
  const index=cases.findIndex(c=>c.id===id);if(index<0)return;
  if(caseIndex.open)caseIndex.close();
  const alreadyOpen=view.open;
@@ -106,10 +108,10 @@ function openCase(id,source=null,options={}){
  if(!options.skipCover)showCaseCover();else hideCaseCover(true);
  const wheelIndex=wheel.list.findIndex(x=>x.id===c.id);if(wheelIndex>=0)rotateWheel(wheel.position+wheelDelta(wheelIndex),true);
 }
-function closeCase(fromHistory=false){
+function closeCase(fromHistory=false,instant=false){
  if(closing||!view.open)return;coverVisible=false;closing=true;if(readerObserver)readerObserver.disconnect();
  const finish=()=>{if(caseIndex.open)caseIndex.close();view.close();document.body.classList.remove('locked');if(!fromHistory)history.replaceState(null,'',caseOrigin);if(originWasDeep)$('#showcase').scrollIntoView({behavior:'instant'});else window.scrollTo({top:originScroll,behavior:'instant'});focusBefore?.isConnected&&focusBefore.focus({preventScroll:true});closing=false;};
- if(motionReduced.matches)finish();else view.animate([{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(22px)'}],{duration:200,easing:'ease-in'}).finished.then(finish).catch(finish);
+ if(motionReduced.matches||instant)finish();else view.animate([{opacity:1,transform:'translateY(0)'},{opacity:0,transform:'translateY(22px)'}],{duration:200,easing:'ease-in'}).finished.then(finish).catch(finish);
 }
 function zoom(src,caption){$('#lightbox img').src=src;$('#lightbox img').alt=caption;$('#lightbox p').textContent=caption;if(!lightbox.open)lightbox.showModal()}
 function renderCaseIndex(){const query=$('#index-search').value.trim().toLowerCase(),cat=$('#index-filter').value,list=cases.filter(c=>(cat==='全部'||c.cat===cat)&&JSON.stringify(c).toLowerCase().includes(query));$('#index-grid').innerHTML=list.map(c=>`<button class="index-card" data-index-case="${c.id}" style="--tone:${tone[c.cat]}"><img src="${imgPath(c.images[0])}" alt="${esc(captions[c.images[0]]||c.title)}" loading="lazy"><small>${esc(c.cat)}</small><h3>${esc(c.short||c.title)}</h3><p>${esc(c.contribution||c.summary)}</p><span>${c.id===currentProject().id&&view.open?'正在閱讀':'閱讀案例'} ↗</span></button>`).join('');$$('[data-index-case]').forEach(b=>b.onclick=()=>openCase(b.dataset.indexCase));$('#index-count').textContent=list.length+' / '+cases.length+' 個專案';$('#index-empty').hidden=!!list.length;}
@@ -119,7 +121,7 @@ $('#prev-case').onclick=()=>openCase(cases[mod(currentCase-1,cases.length)].id);
 $$('[data-open]').forEach(b=>b.onclick=()=>openCase(b.dataset.open,b));
 document.addEventListener('keydown',e=>{if(e.defaultPrevented||$('#media-view').open)return;if(e.key==='Escape'&&!menu.hidden){closeMenu();return}if(coverVisible&&['ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();hideCaseCover();return}if(!view.open||lightbox.open||caseIndex.open||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;if(e.key==='ArrowRight'){e.preventDefault();$('#next-case').click()}if(e.key==='ArrowLeft'){e.preventDefault();$('#prev-case').click()}if(e.key==='ArrowDown'){e.preventDefault();jumpChapter(currentChapter+1)}if(e.key==='ArrowUp'){e.preventDefault();jumpChapter(currentChapter-1)}});
 let touchStart=null;layout.addEventListener('touchstart',e=>{touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});layout.addEventListener('touchend',e=>{if(!touchStart||lightbox.open)return;const dx=e.changedTouches[0].clientX-touchStart.x,dy=e.changedTouches[0].clientY-touchStart.y;if(Math.abs(dx)>110&&Math.abs(dx)>Math.abs(dy)*1.6)(dx<0?$('#next-case'):$('#prev-case')).click();touchStart=null},{passive:true});
-window.addEventListener('popstate',()=>{if(location.hash.startsWith('#case/')){const [id,n]=location.hash.slice(6).split('/');openCase(id,null,{fromHistory:true,skipCover:+n>1});if(+n>1)requestAnimationFrame(()=>jumpChapter(+n-1,true))}else if(view.open)closeCase(true)});
+window.addEventListener('popstate',()=>{if(location.hash.startsWith('#case/')){const [id,n]=location.hash.slice(6).split('/');openCase(id,null,{fromHistory:true,skipCover:+n>1});if(!['zyxel','network','experiment'].includes(id)&&+n>1)requestAnimationFrame(()=>jumpChapter(+n-1,true))}else if(view.open)closeCase(true)});
 
 
 function showCaseCover(){
@@ -134,6 +136,6 @@ $('#case-media').onclick=()=>{const m=currentProject().media;if(!m)return;const 
 $('#media-close').onclick=()=>$('#media-view').close();$('#media-view').addEventListener('close',()=>{$('#media-view video').pause();$('#media-view video').removeAttribute('src');$('#media-view video').load();$('#case-media').focus({preventScroll:true})});
 let coverTouchY=0;$('#case-cover').addEventListener('touchstart',e=>{coverTouchY=e.touches[0].clientY},{passive:true});$('#case-cover').addEventListener('touchend',e=>{if(coverTouchY-e.changedTouches[0].clientY>35)hideCaseCover()},{passive:true});
 
-if(location.hash.startsWith('#case/')){const [id,n]=location.hash.slice(6).split('/');openCase(id,null,{fromHistory:true,skipCover:+n>1});if(+n>1)requestAnimationFrame(()=>jumpChapter(+n-1,true))}
+if(location.hash.startsWith('#case/')&&!['zyxel','network','experiment'].some(id=>location.hash.startsWith('#case/'+id))){const [id,n]=location.hash.slice(6).split('/');openCase(id,null,{fromHistory:true,skipCover:+n>1});if(!['zyxel','network','experiment'].includes(id)&&+n>1)requestAnimationFrame(()=>jumpChapter(+n-1,true))}
 
 let readerResizeTimer;window.addEventListener('resize',()=>{if(!view.open)return;clearTimeout(readerResizeTimer);readerResizeTimer=setTimeout(()=>{observeReader();if(!coverVisible)jumpChapter(currentChapter,true)},120)},{passive:true});

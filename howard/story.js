@@ -49,7 +49,7 @@
   hero.addEventListener('pointerleave',()=>{pointerX=pointerY=0;schedule()});
   update();
   const scenes=[
-    {id:'zyxel',image:'zyxel.jpg',alt:'ZyXEL 網通介面概念與設計資料',caption:'ZyXEL / HUMAN–COMPUTER INTERACTION'},
+    {id:'zyxel',image:'zyxel.jpg',alt:'ZyXEL 網通介面概念與設計資料',caption:'ZyXEL / UIUX ARCHITECTURE & HCI LEADERSHIP'},
     {id:'lipo',image:'lipo.png',alt:'PowerTech Lipo 智慧生活產品與品牌規劃',caption:'POWERTECH / HARDWARE × EXPERIENCE × MARKET'},
     {id:'bim',image:'anchor-large-model.jpg',alt:'AnchorGo 大模型檢視與雲端渲染介面，2021 產品資料',caption:'ANCHORTECH / MODEL → SHARED CONTEXT'}
   ];

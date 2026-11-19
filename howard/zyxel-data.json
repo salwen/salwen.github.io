@@ -1,0 +1,243 @@
+{
+  "roles": [
+    {
+      "name": "洞察與研究",
+      "en": "RESEARCH",
+      "body": "把市場、競品與使用者情境帶進產品決策。與 PM 對齊需求與規格，讓設計有共同的問題起點。",
+      "outputs": [
+        "競品分析",
+        "使用情境",
+        "使用性驗證"
+      ]
+    },
+    {
+      "name": "互動與架構",
+      "en": "INTERACTION",
+      "body": "把需求轉成資訊架構、User Flow 與 Storyboard，讓跨裝置的操作有一致邏輯，也讓團隊能具體討論取捨。",
+      "outputs": [
+        "資訊架構",
+        "User Flow",
+        "Storyboard"
+      ]
+    },
+    {
+      "name": "視覺與系統",
+      "en": "DESIGN SYSTEM",
+      "body": "建立 GUI 概念、介面規範與可重用的 Mockup，連結品牌識別與產品體驗，支援不同產品與客製化需求。",
+      "outputs": [
+        "GUI Prototype",
+        "Mockup 規範",
+        "品牌一致性"
+      ]
+    },
+    {
+      "name": "前端與交付",
+      "en": "FRONT-END",
+      "body": "把設計轉成 GUI Framework 與可交付的程式資產，協同研發完成迭代、版面檢核及整合確認。",
+      "outputs": [
+        "HTML / CSS / JavaScript",
+        "GUI Framework",
+        "Layout Check"
+      ]
+    }
+  ],
+  "flow": [
+    {
+      "title": "競品與需求",
+      "en": "DISCOVER",
+      "owner": "PM × HCI",
+      "body": "以產品規格與期程為起點，整理競品、使用需求與設計機會。",
+      "outputs": [
+        "Product Specification",
+        "Competitor Analysis"
+      ]
+    },
+    {
+      "title": "情境與資訊架構",
+      "en": "DEFINE",
+      "owner": "HCI × PM",
+      "body": "把需求轉成情境、資訊架構、操作流程與 Storyboard。",
+      "outputs": [
+        "Scenario Plan",
+        "Information Architecture",
+        "User Flow / Storyboard"
+      ]
+    },
+    {
+      "title": "GUI 原型設計",
+      "en": "PROTOTYPE",
+      "owner": "UX × UI",
+      "body": "定義 GUI 概念、版本風格與 2D 頁面，形成團隊可以共同檢視的原型。",
+      "outputs": [
+        "GUI Concept",
+        "2D Pages",
+        "Version Style"
+      ]
+    },
+    {
+      "title": "前端框架實作",
+      "en": "BUILD",
+      "owner": "Front-end × RD",
+      "body": "將設計轉成 GUI Framework，整理可重用的版面與互動，並視專案需要協同外部供應商。",
+      "outputs": [
+        "GUI Framework",
+        "HTML / CSS / JavaScript",
+        "Package Release"
+      ]
+    },
+    {
+      "title": "修正與驗證",
+      "en": "REFINE",
+      "owner": "HCI × RD × PM",
+      "body": "依確認結果迭代功能與版面。2012 年資料另列出可選的使用性研究與測試協作。",
+      "outputs": [
+        "GUI Modification",
+        "Usability Review",
+        "Layout Check"
+      ]
+    },
+    {
+      "title": "確認與整合交付",
+      "en": "DELIVER",
+      "owner": "PM × HCI × RD",
+      "body": "完成版面與內容確認，再交付 RD 進行整合；確認未通過時回到前一步修正，形成完整交付循環。",
+      "outputs": [
+        "Confirm",
+        "Release to RD",
+        "Project Closed"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "brick",
+      "name": "Brick",
+      "category": "ROUTER EXPERIENCE",
+      "title": "複雜的網路，清楚的入口。",
+      "body": "從 Basic／Expert 的不同使用需求出發，重新整理狀態、設定與裝置管理。新版示範把高頻任務放在前景，進階資訊按需展開。",
+      "image": "zyxel-brick.jpg",
+      "caption": "原始網路地圖介面｜GUI_introduce20120817.ppt",
+      "source": "Brick Lite / Rich；原資料包含雙入口、帳號權限、Slider 與 Fast Flip 等框架方向。",
+      "features": [
+        "Easy / Expert 模式",
+        "網路設定流程",
+        "裝置狀態與控制"
+      ],
+      "type": "router"
+    },
+    {
+      "id": "fantabox",
+      "name": "FantaBox",
+      "category": "PERSONAL STORAGE",
+      "title": "把儲存功能，整理成日常工作。",
+      "body": "原資料以 NAS 與 3D 選單、拖放為核心。新版以檔案任務、資料夾與內容層級重整資訊，減少在功能入口之間尋找。",
+      "image": "zyxel-fantabox.jpg",
+      "caption": "原始 NAS325 介面｜GUI_introduce20120817.ppt",
+      "source": "FantaBox；原資料列出 3D menu、Drag & drop，及 NSA221／NSA310／NSA325 等應用。",
+      "features": [
+        "資料夾切換",
+        "即時檔名篩選",
+        "清單 / 格狀檢視"
+      ],
+      "type": "storage"
+    },
+    {
+      "id": "tube",
+      "name": "Tube",
+      "category": "LIVING ROOM INTERFACE",
+      "title": "讓遠距離操作，也能直接理解。",
+      "body": "以 TV 顯示介面與內容導覽為出發點，放大焦點、簡化選項，讓選取狀態清楚可見。新版以可操作的內容切換呈現這個方向。",
+      "image": "zyxel-tube.jpg",
+      "caption": "原始 TV / 多媒體介面｜GUI_introduce20120817.ppt",
+      "source": "Tube；原資料列出 Slider、Drag & drop、Fast flip 與 STB-2110T。",
+      "features": [
+        "內容分類",
+        "焦點移動",
+        "選取回饋"
+      ],
+      "type": "media"
+    },
+    {
+      "id": "web2",
+      "name": "Web 2.0",
+      "category": "ENTERPRISE CONSOLE",
+      "title": "把企業管理，放進可判讀的工作台。",
+      "body": "延續自訂入口、Grid Panel 與 Virtual Device 的框架方向，以狀態、事件和操作層級整理複雜的管理資訊。",
+      "image": "zyxel-web2.jpg",
+      "caption": "原始 ZyWALL USG 200 介面｜GUI_introduce20120817.ppt",
+      "source": "Web 2.0；原資料列出 ZyWALL USG、Pro-wireless LAN 與 COE common platform。",
+      "features": [
+        "狀態概覽",
+        "事件篩選",
+        "詳細資訊展開"
+      ],
+      "type": "operations"
+    },
+    {
+      "id": "spider",
+      "name": "Spider",
+      "category": "NETWORK OPERATIONS",
+      "title": "讓管理者，更快定位需要處理的事。",
+      "body": "從網管入口、Grid Panel、Dialog、Accordion 與 Date Picker 出發，把事件篩選與資料檢視放在同一個操作脈絡。",
+      "image": "zyxel-spider.jpg",
+      "caption": "原始 ENC 1.0 網管介面｜GUI_introduce20120817.ppt",
+      "source": "Spider；原資料包含 ENC 1.0 與網管介面框架。",
+      "features": [
+        "事件分類",
+        "日期切換",
+        "事件內容展開"
+      ],
+      "type": "operations"
+    },
+    {
+      "id": "zsmart",
+      "name": "Z-Smart",
+      "category": "CROSS-PLATFORM",
+      "title": "同一套體驗，適應不同裝置。",
+      "body": "以 HTML5 與視覺解析度自動轉換的歷史方向為基礎，重新示範桌機、平板與手機的共同任務流程。",
+      "image": "zyxel-responsive.jpg",
+      "caption": "原始行動檢視範例｜同份 GUI 產品資料",
+      "source": "Z-Smart；原資料提出 HTML5、自訂入口與自適應解析度。原圖保留同份資料的行動介面範例。",
+      "features": [
+        "Desktop / Tablet / Phone",
+        "共同資訊架構",
+        "連線設定與結果確認"
+      ],
+      "type": "router"
+    }
+  ],
+  "responsibilities": [
+    {
+      "title": "產品策略與系統設計",
+      "body": "主導跨平台產品體驗與系統設計，將商業策略轉化為可規模化的產品架構與服務模型"
+    },
+    {
+      "title": "B2C 產品與跨部門交付",
+      "body": "統籌 B2C 產品開發與落地，串聯設計、工程與產品團隊，推動跨部門複雜專案高效執行"
+    },
+    {
+      "title": "設計系統與開發標準",
+      "body": "建立設計系統與開發流程標準，提升組織產能並確保產品一致性與擴展性"
+    },
+    {
+      "title": "使用者洞察與產品決策",
+      "body": "將使用者洞察導入產品決策，優化體驗並強化市場競爭力"
+    },
+    {
+      "title": "前端架構與技術基礎",
+      "body": "推動前端架構與技術基礎建設，支撐產品長期發展與維運效率"
+    },
+    {
+      "title": "資源與協作機制",
+      "body": "管理專案資源與跨部門協作機制，提升組織整體運作效能"
+    },
+    {
+      "title": "完整產品輸出",
+      "body": "負責從策略到落地的完整產品輸出，確保品質與交付成果"
+    },
+    {
+      "title": "品牌與產品體驗",
+      "body": "串聯品牌與產品體驗，建立一致且可延伸的企業識別系統"
+    }
+  ]
+}

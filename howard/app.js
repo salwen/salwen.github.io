@@ -3,6 +3,15 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const cases=window.HOWARD_CASES;
 const tone={'空間策略':'#e2e9c4','品牌文化':'#f1d5c1','材料識別':'#c7ddc7','數位產品':'#d1ddeb','智慧硬體':'#e7dbb5','AI與工具':'#d7cee5'};
 const captions={
+"zyxel-process-2012.jpg":"2012 UXD／GUI 原始協作流程｜GUI_introduce20120817.ppt",
+"zyxel-workflow-2011.jpg":"2011 PM／UED／HCI／供應商協作與交付｜workflow_20110503.pdf",
+"zyxel-brick.jpg":"原始網路地圖 GUI｜2012 ZyXEL 專案資料",
+"zyxel-fantabox.jpg":"原始 NAS325 介面｜2012 ZyXEL 專案資料",
+"zyxel-tube.jpg":"原始 TV／多媒體介面｜2012 ZyXEL 專案資料",
+"zyxel-web2.jpg":"原始 ZyWALL USG 200 介面｜2012 ZyXEL 專案資料",
+"zyxel-spider.jpg":"原始 ENC 1.0 網管介面｜2012 ZyXEL 專案資料",
+"zyxel-responsive.jpg":"原始行動檢視範例｜2012 ZyXEL 專案資料",
+
 "anchor-large-model.jpg":"AnchorGo 大模型檢視與雲端渲染｜2021 產品簡報 p.11",
 "anchor-sdk.jpg":"Anchor SDK 格式支援｜2021 產品簡報 p.3",
 "anchor-view.jpg":"Anchor View 跨裝置檢視｜2021 產品簡報 p.6",
