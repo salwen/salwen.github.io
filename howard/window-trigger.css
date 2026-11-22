@@ -1,0 +1,7 @@
+.wt-entry.hero-image-small { min-width: 104px; }
+.wt-entry.hero-image-small img { object-fit: cover; }
+.wt-entry.hero-image-small span {
+  display: block; opacity: 1; transform: none; position: absolute; inset: auto 0 0;
+  padding: 16px 5px 5px; color: white; font-size: clamp(8px, .72vw, 13px);
+  background: linear-gradient(transparent, #15291ddd); white-space: nowrap;
+}

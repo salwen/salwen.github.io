@@ -1,24 +1,52 @@
 /* Scroll-led product stories with synchronized, animated original PDF pages. */
 (()=>{
  'use strict';
- const data=window.HOWARD_PRACTICE,reader=document.querySelector('#practice-reader'),entry=document.querySelector('[data-practice]');
+ const practiceData=window.HOWARD_PRACTICE,reader=document.querySelector('#practice-reader'),entry=document.querySelector('[data-practice]');
  const q=s=>reader.querySelector(s),root=q('#practice-scroll'),reduced=matchMedia('(prefers-reduced-motion:reduce)');
- const total=data.pages.length,groups=data.groups,sections=[],groupButtons=[];
+ const sections=[],groupButtons=[],original=q('#practice-original');
+ const practiceMeta={
+  title:q('#practice-reader-title').textContent,
+  subtitle:q('.pr-header p').textContent,
+  original:original.getAttribute('href'),
+  originalLabel:original.textContent,
+  footer:q('.pr-source').textContent
+ };
+ let data,total,groups,storeSource=null;
  const clamp=n=>Math.max(1,Math.min(total,Math.trunc(Number(n))||1));
  const groupFor=n=>groups.findIndex(g=>n>=g.start&&n<=g.end);
  let page=0,group=-1,origin='#home',sourceFocus=entry,sourceScroll=0,scrollLock=0,scrollFrame=0,visualToken=0,animations=[],swipe=null,suppressClick=0;
  function cleanAnimation(){animations.forEach(a=>a.cancel());animations=[];q('#practice-page-image').querySelectorAll('.pr-outgoing').forEach(el=>el.remove())}
- groups.forEach((g,i)=>{
-  const button=document.createElement('button');button.type='button';button.dataset.group=i;button.innerHTML='<span>'+String(i+1).padStart(2,'0')+'</span><strong></strong>';button.querySelector('strong').textContent=g.label;button.onclick=()=>go(g.start);q('#practice-outline').append(button);groupButtons.push(button);
- });
- data.pages.forEach(p=>{
-  const option=document.createElement('option');option.value=p.number;option.textContent=String(p.number).padStart(2,'0')+' / '+p.title;q('#practice-page-select').append(option);
-  const section=document.createElement('section');section.id='practice-step-'+p.number;section.className='pr-step';section.dataset.page=p.number;section.setAttribute('aria-labelledby','practice-heading-'+p.number);
-  section.innerHTML='<span class="pr-step-kicker"></span><h3 id="practice-heading-'+p.number+'"></h3><p></p><button type="button" class="pr-view-source">查看完整原圖 ↗</button>';
-  section.querySelector('.pr-step-kicker').textContent=String(p.number).padStart(2,'0')+' / '+groups[groupFor(p.number)].label;
-  section.querySelector('h3').textContent=p.heading;section.querySelector('p').textContent=p.body;
-  section.querySelector('button').onclick=()=>{go(p.number,true);enlarge()};q('#practice-narrative').append(section);sections.push(section);
- });
+ function buildReader(content){
+  data=content;total=data.pages.length;groups=data.groups;
+  sections.length=0;groupButtons.length=0;
+  for(const selector of ['#practice-outline','#practice-page-select','#practice-narrative','#practice-filmstrip'])q(selector).replaceChildren();
+  q('#practice-image').removeAttribute('src');
+  delete q('#practice-image').dataset.page;
+  const meta=storeSource?{
+   title:data.title,subtitle:data.edition+' ・ '+total+' 頁',original:data.original,
+   originalLabel:data.originalLabel||'開啟原始 Keynote ↗',footer:'捲動切換・點擊放大'
+  }:practiceMeta;
+  q('#practice-reader-title').textContent=meta.title;
+  q('.pr-header p').textContent=meta.subtitle;
+  original.hidden=!meta.original;
+  original.style.display=meta.original?'':'none';
+  if(meta.original)original.href=meta.original;
+  else original.removeAttribute('href');
+  original.textContent=meta.originalLabel;
+  q('.pr-source').textContent=meta.footer;
+  reader.classList.toggle('pr-store-document',Boolean(storeSource));
+  groups.forEach((g,i)=>{
+   const button=document.createElement('button');button.type='button';button.dataset.group=i;button.innerHTML='<span>'+String(i+1).padStart(2,'0')+'</span><strong></strong>';button.querySelector('strong').textContent=g.label;button.onclick=()=>go(g.start);q('#practice-outline').append(button);groupButtons.push(button);
+  });
+  data.pages.forEach(p=>{
+   const option=document.createElement('option');option.value=p.number;option.textContent=String(p.number).padStart(2,'0')+' / '+p.title;q('#practice-page-select').append(option);
+   const section=document.createElement('section');section.id='practice-step-'+p.number;section.className='pr-step';section.dataset.page=p.number;section.setAttribute('aria-labelledby','practice-heading-'+p.number);
+   section.innerHTML='<span class="pr-step-kicker"></span><h3 id="practice-heading-'+p.number+'"></h3><p></p><button type="button" class="pr-view-source">查看完整原圖 ↗</button>';
+   section.querySelector('.pr-step-kicker').textContent=String(p.number).padStart(2,'0')+' / '+groups[groupFor(p.number)].label;
+   section.querySelector('h3').textContent=p.heading;section.querySelector('p').textContent=p.body;
+   section.querySelector('button').onclick=()=>{go(p.number,true);enlarge()};q('#practice-narrative').append(section);sections.push(section);
+  });
+ }
  function animateVisual(p,direction){
   const image=q('#practice-image'),button=q('#practice-page-image'),token=++visualToken;
   button.setAttribute('aria-busy','true');
@@ -48,7 +76,7 @@
   reader.style.setProperty('--pr-progress',page/total);sections.forEach((el,i)=>el.classList.toggle('active',i+1===page));groupButtons.forEach((b,i)=>b.setAttribute('aria-current',i===index?'page':'false'));
   if(index!==group){group=index;updateFilmstrip(index);const side=q('.pr-index'),nav=q('#practice-outline'),button=groupButtons[index];if(matchMedia('(max-width:760px)').matches){const a=button.getBoundingClientRect(),b=nav.getBoundingClientRect();nav.scrollTo({left:nav.scrollLeft+a.left-b.left-(b.width-a.width)/2,behavior:reduced.matches?'instant':'smooth'})}else if(button.offsetTop<side.scrollTop||button.offsetTop+button.offsetHeight>side.scrollTop+side.clientHeight){side.scrollTo({top:Math.max(0,button.offsetTop-side.clientHeight*.4),behavior:reduced.matches?'instant':'smooth'})}}q('#practice-filmstrip').querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',+b.dataset.page===page?'page':'false'));
   const preview=q('#practice-next-preview');preview.src=imgPath(data.pages[Math.min(page,total-1)].image);q('.pr-next-card').hidden=page===total;
-  animateVisual(p,direction);if(reader.open)history.replaceState({practicePage:page},'','#practice/'+page);
+  animateVisual(p,direction);if(reader.open&&!storeSource)history.replaceState({practicePage:page},'','#practice/'+page);
  }
  function syncScroll(){
   scrollFrame=0;if(!reader.open||performance.now()<scrollLock)return;
@@ -66,16 +94,30 @@
   const top=sections[n-1].getBoundingClientRect().top-rect.top+root.scrollTop-offset;
   root.scrollTo({top:Math.max(0,top),behavior:instant||reduced.matches?'instant':'smooth'});
  }
- function open(number=1,fromHistory=false){
-  if(!reader.open){origin=location.hash.startsWith('#practice/')?'#home':location.hash||'#home';sourceFocus=document.activeElement;sourceScroll=scrollY;reader.showModal();document.body.classList.add('locked');if(!fromHistory)history.pushState({practicePage:number},'','#practice/'+number);page=0;group=-1;
+ function open(number=1,fromHistory=false,source=null){
+  if(!reader.open){storeSource=source;
+   const content=source?.hasAttribute('data-window-entry')?window.HOWARD_WINDOW_DOCUMENT:
+    source?window.HOWARD_STORE_DOCUMENTS[source.dataset.storeDocument]:practiceData;
+   if(content!==data)buildReader(content);
+   origin=location.hash.startsWith('#practice/')?'#home':location.hash||'#home';sourceFocus=source||document.activeElement;sourceScroll=scrollY;reader.showModal();document.body.classList.add('locked');if(!fromHistory&&!source)history.pushState({practicePage:number},'','#practice/'+number);page=0;group=-1;
    if(!reduced.matches)reader.animate([{opacity:0,clipPath:'inset(9% 9% 9% 9% round 18px)'},{opacity:1,clipPath:'inset(0% 0% 0% 0% round 0px)'}],{duration:580,easing:'cubic-bezier(.22,.7,.2,1)'});
   }
   go(number,true);q('#practice-close').focus({preventScroll:true});
  }
  function close(fromHistory=false){
-  if(!reader.open)return;++visualToken;cleanAnimation();if(scrollFrame)cancelAnimationFrame(scrollFrame);scrollFrame=0;reader.close();document.body.classList.remove('locked');if(!fromHistory)history.replaceState(null,'',origin);window.scrollTo({top:sourceScroll,behavior:'instant'});if(sourceFocus?.isConnected)sourceFocus.focus({preventScroll:true});
+  if(!reader.open)return;++visualToken;cleanAnimation();if(scrollFrame)cancelAnimationFrame(scrollFrame);scrollFrame=0;reader.close();if(!document.querySelector('#store-experience')?.open)document.body.classList.remove('locked');if(!fromHistory&&!storeSource)history.replaceState(null,'',origin);storeSource=null;window.scrollTo({top:sourceScroll,behavior:'instant'});if(sourceFocus?.isConnected)sourceFocus.focus({preventScroll:true});
  }
  function enlarge(){const p=data.pages[page-1];zoom(imgPath(p.image),'第 '+page+' / '+total+' 頁 · '+p.title)}
+ document.querySelectorAll('[data-store-document]').forEach(link=>{
+  link.addEventListener('click',event=>{
+   if(event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+   if(!window.HOWARD_STORE_DOCUMENTS?.[link.dataset.storeDocument])return;
+   event.preventDefault();
+   open(1,false,link);
+  });
+ });
+ const windowEntry=document.querySelector('[data-window-entry]');
+ if(windowEntry)windowEntry.onclick=()=>open(1,false,windowEntry);
  entry.onclick=()=>open(1);q('#practice-close').onclick=()=>close();reader.addEventListener('cancel',e=>{e.preventDefault();close()});
  q('#practice-prev').onclick=()=>go(page-1);q('#practice-next').onclick=()=>go(page+1);q('#practice-page-select').onchange=e=>go(e.target.value);q('#practice-page-image').onclick=()=>{if(performance.now()>suppressClick)enlarge()};q('#practice-enlarge').onclick=enlarge;
  root.addEventListener('scroll',requestSync,{passive:true});root.addEventListener('scrollend',()=>{scrollLock=0;requestSync()});window.addEventListener('resize',requestSync);
