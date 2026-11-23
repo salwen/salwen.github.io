@@ -1,0 +1,29 @@
+:root{--paper:#f5f3e9;--ink:#182921;--muted:#4b6156;--accent:#1c5b40}
+.intro{min-height:min(84svh,860px);background:linear-gradient(#101d1a55,#101d1ab5),url("photos/9b51341b.jpg") center 48%/cover}
+.intro h1{font-size:clamp(3.3rem,8vw,7.2rem);letter-spacing:.05em;text-shadow:0 3px 24px #14231d}
+.hero-line{font-size:clamp(1.05rem,2.2vw,1.6rem);margin:.7rem 0 1.5rem}
+.editorial{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:clamp(1.5rem,6vw,6rem);align-items:center}
+.editorial,.workflow,.sites-progress,#documents{padding-block:clamp(2.7rem,6vw,5rem)}
+.editorial figure img{aspect-ratio:4/3;object-fit:cover}
+.workflow{border-top:1px solid var(--line)}
+.workflow details{border-bottom:1px solid var(--line);padding:.8rem 0}
+.workflow summary{cursor:pointer;color:var(--accent);font-weight:650;padding:.35rem 0}
+.workflow details p{max-width:54rem;margin-left:1.4rem}
+.archive{background:#183e32;color:#fff;padding-block:clamp(2.7rem,6vw,5rem)}
+.archive p,.chapter p{max-width:52rem}
+.categories{display:flex;flex-wrap:wrap;gap:.6rem;padding:0;list-style:none}
+.categories li{border:1px solid #91ad9d;padding:.3rem .8rem}
+.sites-progress{border-bottom:1px solid var(--line)}
+.sites-status{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:1.5rem 3rem;margin-top:1.75rem}
+.sites-status h3{margin:0;border-top:1px solid var(--line);padding-top:1rem;font-size:1.25rem}
+.sites-status h3 span{margin-left:.55rem;color:var(--muted);font-size:.9rem;font-weight:500}
+.sites-status ul{display:grid;grid-template-columns:repeat(auto-fit,minmax(7rem,1fr));gap:.5rem 1rem;list-style:none;margin:.85rem 0 0;padding:0}
+.chapter-controls{display:flex;gap:.4rem}
+.gallery img{object-fit:cover}
+.gallery img[src="photos/c90ffa5e.jpg"],#screens img[src="photos/c90ffa5e.jpg"]{object-position:center 12%}
+.stage img{height:100%;object-fit:contain}
+.document-links{list-style:none;margin:1.5rem 0 0;padding:0;max-width:55rem}
+.document-links li{border-bottom:1px solid var(--line)}
+.document-links a{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:.3rem 1rem;padding:.8rem 0}
+.document-links span{font-size:.9rem;color:var(--muted)}
+@media(max-width:720px){.editorial{grid-template-columns:1fr}.intro{min-height:74svh}.chapter-nav h2{font-size:1.7rem}}

@@ -1,0 +1,55 @@
+:root{color-scheme:light;--paper:#f3f0e8;--ink:#202720;--muted:#526053;--line:#c8cdc0;--accent:#254e40}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.7 system-ui,sans-serif}
+body:has(dialog[open]){overflow:hidden}
+a{color:var(--accent);text-underline-offset:.3em}
+img{display:block;width:100%;height:auto}
+button{font:inherit;cursor:pointer}
+figure{margin:0}
+.wrap{width:min(92%,1360px);margin:auto}
+.top{display:flex;justify-content:space-between;gap:1rem;padding-block:1.4rem;border-bottom:1px solid var(--line)}
+.intro{display:grid;grid-template-columns:1fr 1.65fr;align-items:center;gap:clamp(1.5rem,5vw,6rem);padding-block:clamp(2.5rem,8vw,7rem)}
+.label,figcaption{color:var(--muted);font-size:.85rem}
+.label{letter-spacing:.12em}
+h1,h2{font-family:Georgia,"Songti TC",serif;line-height:1.1;font-weight:500}
+h1{font-size:clamp(2.65rem,6vw,6.7rem);margin:.2em 0}
+h1 em{color:var(--accent)}
+h2{font-size:clamp(1.75rem,3vw,3rem);margin:0}
+figcaption{margin-top:.5rem}
+#screens{display:flex;flex-wrap:wrap;gap:1rem 2rem;padding:1.2rem 0;border-block:1px solid var(--line)}
+section.chapter{padding:3rem 0;border-bottom:1px solid var(--line);scroll-margin:1rem}
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:1rem;margin-top:1.5rem}
+.gallery button{border:0;padding:0;text-align:left;background:transparent;color:var(--ink)}
+.gallery img{aspect-ratio:4/3;object-fit:contain;background:#e4e8de;border:1px solid var(--line)}
+.gallery button:hover img{border-color:var(--accent)}
+.gallery span{display:block;padding:.5rem 0}
+footer{padding-block:2rem 4rem}
+dialog{position:fixed;inset:0;margin:0;width:100%;height:100dvh;max-width:none;max-height:none;border:0;padding:clamp(.65rem,2vw,1.6rem);background:#17211d;color:#f0f4ec}
+dialog[open]{display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:.8rem}
+.viewer-bar,.controls{display:flex;gap:.75rem;align-items:center}
+.viewer-bar{justify-content:space-between}
+dialog button{flex-shrink:0;border:1px solid #829486;background:#24362e;color:inherit;border-radius:.3rem;padding:.35rem .7rem}
+.stage{overflow:auto;overscroll-behavior:contain;background:#101814}
+.stage img{width:min(100%,1400px);margin:auto}
+.stage img.fit{height:100%;object-fit:contain}
+.strip{display:flex;gap:.5rem;min-width:0;overflow-x:auto;padding:.2rem}
+.strip button{padding:.15rem;width:clamp(46px,8vw,96px)}
+.strip img{height:clamp(37px,5vw,64px);object-fit:contain}
+.strip [aria-current=true]{outline:2px solid #e0eab4;outline-offset:-2px}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+@media(max-width:720px){.intro{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+html{scroll-behavior:smooth}
+.intro{display:flex;align-items:center;justify-content:center;text-align:center;min-height:min(80svh,850px);padding:3rem 5%;background:linear-gradient(#111d17a6,#111d17c9),url("assets/screen-01.png") center 55%/cover;color:#fff}
+.intro div{max-width:42rem}
+.intro .label,.intro em,.intro a{color:#e4edda}
+.intro h1{font-size:clamp(3.2rem,9vw,8rem)}
+.chapter-nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:3rem 0 1rem}
+.chapter-nav button{min-width:2.5rem;border:1px solid var(--accent);background:transparent;color:var(--accent)}
+#screens{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:.75rem;scroll-snap-type:x mandatory;padding:0 4% 1rem;border:0}
+#screens a{flex:0 0 clamp(235px,29vw,450px);position:relative;overflow:hidden;scroll-snap-align:center;color:white;background:#203128}
+#screens img{aspect-ratio:4/3;object-fit:cover;opacity:.68;transition:opacity .2s}
+#screens a:hover img,#screens a:focus-visible img{opacity:.38}
+#screens span{position:absolute;inset:auto 0 0;padding:2rem 1rem 1rem;background:linear-gradient(transparent,#111d17);font-size:clamp(1rem,2vw,1.4rem)}
+.chapter:nth-child(even) .gallery{background:#e7eade;padding:1rem}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}#screens img{transition:none}}

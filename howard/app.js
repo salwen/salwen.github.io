@@ -69,6 +69,8 @@ const captions={
  'headquarters.jpg':'總部八樓規劃配置｜230717 空間介紹頁7',
  'b2.jpg':'原點 B2 功能分區規劃｜240910 簡報頁10',
  'b2-culture.jpg':'原點 B2 文化與空間定位｜240910 簡報頁5',
+ 'store-improvement-cover.jpg':'民生健康店街角門面',
+ 'signing-reception-cover.png':'信義代書簽約中心接待區與品牌牆',
  'signing.jpg':'內湖代書所空間配置規劃｜250120 簡報頁8',
  'zyxel.jpg':'跨裝置 GUI 概念｜ZyXEL Router Concept 原始簡報頁10',
  'lipo.png':'Lipo 裝置產品圖｜Powertech／lipo 目錄',

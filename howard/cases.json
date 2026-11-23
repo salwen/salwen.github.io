@@ -972,7 +972,7 @@
     "role": "服務動線、空間規格及跨據點整合",
     "credit": "Howard 與代書使用單位、空間設計、工程及設備團隊",
     "images": [
-      "signing.jpg",
+      "signing-reception-cover.png",
       "brand-interior.jpg",
       "tile-real.jpg"
     ],
@@ -1035,18 +1035,19 @@
     "questions": [
       "抵達與等待是否容易理解？",
       "洽談及代書作業是否維持私密？"
-    ]
+    ],
+    "url": "signing/index.html"
   },
   {
     "id": "delivery",
-    "cat": "材料識別",
+    "cat": "空間策略",
     "title": "門市改造：把一套設計，變成可持續交付的系統。",
     "tag": "CONSISTENCY AT SCALE",
-    "summary": "共用物料、施工圖、分級、驗收與問題回饋共同支撐品質。",
+    "summary": "以流程 SOP、工程履歷與採購稽核，串起分店、設計、工程及廠商的交接。",
     "role": "工程需求、物料標準與採購介面整合",
     "credit": "Howard 與分店、設計小組、工程、採購及合作廠商",
     "images": [
-      "space.jpg",
+      "store-improvement-cover.jpg",
       "tile-fire.jpg",
       "tile-modules.jpg"
     ],
@@ -1109,7 +1110,8 @@
     "questions": [
       "比較的報價是否有相同範圍？",
       "驗收問題能否回到規格改善？"
-    ]
+    ],
+    "url": "store-improvement/index.html"
   },
   {
     "id": "zyxel",

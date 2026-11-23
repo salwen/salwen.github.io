@@ -87,6 +87,12 @@ function openCase(id,source=null,options={}){
  if(['network','experiment'].includes(id)&&window.openStoreExperience){window.openStoreExperience(source,{...options,section:id==='network'?2:6});return;}
  if(id==='zyxel'&&window.openZyxelExperience){window.openZyxelExperience(source,options);return;}
  const index=cases.findIndex(c=>c.id===id);if(index<0)return;
+ const caseUrl=cases[index].url;
+ if(caseUrl){
+  if(options.fromHistory)location.replace(caseUrl);
+  else window.open(caseUrl,'_blank','noopener');
+  return;
+ }
  if(caseIndex.open)caseIndex.close();
  const alreadyOpen=view.open;
  if(!alreadyOpen){focusBefore=source||document.activeElement;originScroll=scrollY;originWasDeep=location.hash.startsWith('#case/');caseOrigin=location.hash.startsWith('#case/')?'#showcase':location.hash||'#showcase'}
