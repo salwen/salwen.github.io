@@ -36,7 +36,7 @@
     let active=0;
     chapters.forEach((el,i)=>{if(el.getBoundingClientRect().top<vh*.52)active=i});
     links.forEach((a,i)=>{if(i===active)a.setAttribute('aria-current','true');else a.removeAttribute('aria-current')});
-    q('#chapter-counter').value=String(active+1).padStart(2,'0')+' / 08';
+    q('#chapter-counter').value=String(active+1).padStart(2,'0')+' / '+String(chapters.length).padStart(2,'0');
     rail.classList.toggle('visible',scrollY>vh*.6);
     q('header').classList.toggle('scrolled',scrollY>vh*.6);
     textBlocks.forEach(({el,spans})=>{const rect=el.getBoundingClientRect();const p=reduced.matches?1:clamp((vh*.94-rect.top)/(vh*.55));spans.forEach((s,i)=>s.style.setProperty('--word-progress',clamp(p*(spans.length+2)-i,0,1)))});
@@ -50,7 +50,7 @@
   update();
   const scenes=[
     {id:'zyxel',image:'zyxel.jpg',alt:'ZyXEL 網通介面概念與設計資料',caption:'ZyXEL / UIUX ARCHITECTURE & HCI LEADERSHIP'},
-    {id:'lipo',image:'lipo.png',alt:'PowerTech Lipo 智慧生活產品與品牌規劃',caption:'POWERTECH / HARDWARE × EXPERIENCE × MARKET'},
+    {id:'lipo',image:'lipo-iot/page-01.jpg',alt:'Lipo Smart Socket 智慧插座產品圖',caption:'POWERTECH × LIPO / SMART SOCKET'},
     {id:'bim',image:'anchor-large-model.jpg',alt:'AnchorGo 大模型檢視與雲端渲染介面，2021 產品資料',caption:'ANCHORTECH / MODEL → SHARED CONTEXT'}
   ];
   let scene=-1;

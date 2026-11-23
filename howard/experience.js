@@ -84,15 +84,21 @@ function observeReader(){
  if(readerObserver)readerObserver.disconnect();const ratios=new Map();readerObserver=new IntersectionObserver(entries=>{entries.forEach(e=>ratios.set(e.target,e.isIntersecting?e.intersectionRatio:0));if(performance.now()<chapterLockUntil)return;const visible=[...ratios].filter(([,r])=>r>0).sort((a,b)=>b[1]-a[1]);if(visible.length)updateChapter(+visible[0][0].dataset.caseChapter)},{root:readerRoot(),threshold:[0,.15,.35,.6,.8],rootMargin:'-105px 0px -24% 0px'});$$('.chapter').forEach(el=>readerObserver.observe(el));
 }
 function openCase(id,source=null,options={}){
- if(['network','experiment'].includes(id)&&window.openStoreExperience){window.openStoreExperience(source,{...options,section:id==='network'?2:6});return;}
- if(id==='zyxel'&&window.openZyxelExperience){window.openZyxelExperience(source,options);return;}
- const index=cases.findIndex(c=>c.id===id);if(index<0)return;
- const caseUrl=cases[index].url;
- if(caseUrl){
-  if(options.fromHistory)location.replace(caseUrl);
-  else window.open(caseUrl,'_blank','noopener');
+ if(id==='transformation-base'){
+  if(options.fromHistory)location.replace('transformation-base.html');
+  else location.assign('transformation-base.html');
   return;
  }
+ if(['identity','material'].includes(id)&&window.openBrandExperience){window.openBrandExperience(source,{...options,section:1});return;}
+ if(['network','experiment'].includes(id)&&window.openStoreExperience){window.openStoreExperience(source,{...options,section:id==='network'?2:3});return;}
+ if(id==='zyxel'&&window.openZyxelExperience){window.openZyxelExperience(source,options);return;}
+ const index=cases.findIndex(c=>c.id===id);if(index<0)return;
+ if(cases[index].url){
+  if(options.fromHistory)location.replace(cases[index].url);
+  else window.open(cases[index].url,'_blank','noopener');
+  return;
+ }
+
  if(caseIndex.open)caseIndex.close();
  const alreadyOpen=view.open;
  if(!alreadyOpen){focusBefore=source||document.activeElement;originScroll=scrollY;originWasDeep=location.hash.startsWith('#case/');caseOrigin=location.hash.startsWith('#case/')?'#showcase':location.hash||'#showcase'}
@@ -106,7 +112,7 @@ function openCase(id,source=null,options={}){
  c.chapters.forEach((ch,i)=>{if(ch.explorer)chooseExplorer(i,0,false)});
  $$('[data-explorer]').forEach(b=>{b.onclick=()=>chooseExplorer(+b.dataset.explorer,+b.dataset.option);b.onkeydown=e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();e.stopPropagation();const ch=+b.dataset.explorer,len=c.chapters[ch].explorer.items.length,j=e.key==='Home'?0:e.key==='End'?len-1:mod(+b.dataset.option+(e.key==='ArrowRight'?1:-1),len);chooseExplorer(ch,j);$(`#explorer-${ch}-${j}`).focus({preventScroll:true})}});
  $$('[data-next-chapter]').forEach(b=>b.onclick=()=>jumpChapter(+b.dataset.nextChapter));$('#reader-related').onclick=openCaseIndex;$('#next-project-open').onclick=()=>openCase(cases[mod(index+1,cases.length)].id);
- const sourceBox=$('#case-sources');sourceBox.open=false;sourceBox.querySelector('div').innerHTML='<p>協作與角色：'+esc(c.credit)+'</p>'+c.sources.map(s=>'<p>— '+esc(s)+'</p>').join('')+(c.sourceLinks||[]).map(s=>'<p><a class="underlink" target="_blank" rel="noopener" href="'+esc(s.url)+'">'+esc(s.label)+' ↗</a></p>').join('');$('#case-external').hidden=c.id!=='oracle';$('#case-external').href='https://yijing-oracle-path.howardlo.chatgpt.site/19.html#home';
+ const sourceBox=$('#case-sources');sourceBox.open=false;sourceBox.querySelector('div').innerHTML='<p>協作與角色：'+esc(c.credit)+'</p>'+c.sources.map(s=>'<p>— '+esc(s)+'</p>').join('')+(c.sourceLinks||[]).map(s=>'<p><a class="underlink" target="_blank" rel="noopener" href="'+esc(s.url)+'">'+esc(s.label)+' ↗</a></p>').join('');
  $('#prev-case').setAttribute('aria-label','前一案：'+cases[mod(index-1,cases.length)].short);$('#next-case').setAttribute('aria-label','下一案：'+cases[mod(index+1,cases.length)].short);
  if(!alreadyOpen){view.showModal();document.body.classList.add('locked');if(!options.fromHistory)history.pushState({portfolioCase:c.id},'','#case/'+c.id+'/1');if(!motionReduced.matches){const rect=source?.getBoundingClientRect?.();const clip=rect&&rect.width&&rect.top>=0?`inset(${rect.top}px ${Math.max(0,innerWidth-rect.right)}px ${Math.max(0,innerHeight-rect.bottom)}px ${Math.max(0,rect.left)}px round 14px)`:'inset(8% 8% 8% 8% round 18px)';view.animate([{clipPath:clip,opacity:.4},{clipPath:'inset(0% 0% 0% 0% round 0px)',opacity:1}],{duration:530,easing:'cubic-bezier(.22,.7,.2,1)'})}}
  else if(!motionReduced.matches)layout.animate([{opacity:.3,transform:'translateX(16px)'},{opacity:1,transform:'translateX(0)'}],{duration:320,easing:'ease-out'});
@@ -127,7 +133,7 @@ $('#prev-case').onclick=()=>openCase(cases[mod(currentCase-1,cases.length)].id);
 $$('[data-open]').forEach(b=>b.onclick=()=>openCase(b.dataset.open,b));
 document.addEventListener('keydown',e=>{if(e.defaultPrevented||$('#media-view').open)return;if(e.key==='Escape'&&!menu.hidden){closeMenu();return}if(coverVisible&&['ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();hideCaseCover();return}if(!view.open||lightbox.open||caseIndex.open||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;if(e.key==='ArrowRight'){e.preventDefault();$('#next-case').click()}if(e.key==='ArrowLeft'){e.preventDefault();$('#prev-case').click()}if(e.key==='ArrowDown'){e.preventDefault();jumpChapter(currentChapter+1)}if(e.key==='ArrowUp'){e.preventDefault();jumpChapter(currentChapter-1)}});
 let touchStart=null;layout.addEventListener('touchstart',e=>{touchStart={x:e.touches[0].clientX,y:e.touches[0].clientY}},{passive:true});layout.addEventListener('touchend',e=>{if(!touchStart||lightbox.open)return;const dx=e.changedTouches[0].clientX-touchStart.x,dy=e.changedTouches[0].clientY-touchStart.y;if(Math.abs(dx)>110&&Math.abs(dx)>Math.abs(dy)*1.6)(dx<0?$('#next-case'):$('#prev-case')).click();touchStart=null},{passive:true});
-window.addEventListener('popstate',()=>{if(location.hash.startsWith('#case/')){const [id,n]=location.hash.slice(6).split('/');openCase(id,null,{fromHistory:true,skipCover:+n>1});if(!['zyxel','network','experiment'].includes(id)&&+n>1)requestAnimationFrame(()=>jumpChapter(+n-1,true))}else if(view.open)closeCase(true)});
+window.addEventListener('popstate',()=>{if(location.hash.startsWith('#case/')){const [id,n]=location.hash.slice(6).split('/');openCase(id,null,{fromHistory:true,skipCover:+n>1});if(!['zyxel','network','experiment','identity','material','transformation-base'].includes(id)&&+n>1)requestAnimationFrame(()=>jumpChapter(+n-1,true))}else if(view.open)closeCase(true)});
 
 
 function showCaseCover(){
@@ -142,6 +148,6 @@ $('#case-media').onclick=()=>{const m=currentProject().media;if(!m)return;const 
 $('#media-close').onclick=()=>$('#media-view').close();$('#media-view').addEventListener('close',()=>{$('#media-view video').pause();$('#media-view video').removeAttribute('src');$('#media-view video').load();$('#case-media').focus({preventScroll:true})});
 let coverTouchY=0;$('#case-cover').addEventListener('touchstart',e=>{coverTouchY=e.touches[0].clientY},{passive:true});$('#case-cover').addEventListener('touchend',e=>{if(coverTouchY-e.changedTouches[0].clientY>35)hideCaseCover()},{passive:true});
 
-if(location.hash.startsWith('#case/')&&!['zyxel','network','experiment'].some(id=>location.hash.startsWith('#case/'+id))){const [id,n]=location.hash.slice(6).split('/');openCase(id,null,{fromHistory:true,skipCover:+n>1});if(!['zyxel','network','experiment'].includes(id)&&+n>1)requestAnimationFrame(()=>jumpChapter(+n-1,true))}
+if(location.hash.startsWith('#case/')&&!['zyxel','network','experiment','identity','material'].some(id=>location.hash.startsWith('#case/'+id))){const [id,n]=location.hash.slice(6).split('/');openCase(id,null,{fromHistory:true,skipCover:+n>1});if(!['zyxel','network','experiment','identity','material','transformation-base'].includes(id)&&+n>1)requestAnimationFrame(()=>jumpChapter(+n-1,true))}
 
 let readerResizeTimer;window.addEventListener('resize',()=>{if(!view.open)return;clearTimeout(readerResizeTimer);readerResizeTimer=setTimeout(()=>{observeReader();if(!coverVisible)jumpChapter(currentChapter,true)},120)},{passive:true});

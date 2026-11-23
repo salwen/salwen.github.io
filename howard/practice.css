@@ -22,3 +22,26 @@
 @media(min-width:761px) and (max-width:1050px){.pr-story{grid-template-columns:125px minmax(190px,.8fr) minmax(260px,1.2fr);gap:3%;padding:0 3%}.pr-step h3{font-size:25px}.pr-step p{font-size:12px}#practice-outline button{font-size:9px}.pr-index{padding-right:0}#practice-page-select{max-width:16vw}.pr-page-toolbar label{font-size:7px}}
 @media(max-width:760px){.pr-header{height:96px;padding:14px 6%}.pr-header h2{font-size:24px}.pr-header .pr-eyebrow{font-size:7px}.pr-header p{font-size:8px}.pr-scroll-hint{display:none}.pr-scroll{height:calc(100dvh - 96px)}.pr-story{display:flex;flex-direction:column;gap:0;padding:0 6%}.pr-index{order:0;top:0;width:100%;max-height:none;overflow:hidden;padding:11px 0 8px;z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}.pr-index>.pr-eyebrow,#practice-original{display:none}#practice-outline{display:flex;gap:8px;overflow-x:auto;padding:2px 0 5px;scrollbar-width:thin}#practice-outline button{white-space:nowrap;width:auto;flex:none;border:1px solid #cdd6c2;border-radius:18px;padding:8px 12px;font-size:9px;gap:7px}#practice-outline [aria-current=page]{background:#304638;color:#faf8ed;transform:none}#practice-outline [aria-current=page]:before{display:none}.pr-visual{order:1;top:62px;width:100%;padding:12px 0 9px;background:var(--paper);box-shadow:0 14px 18px var(--paper);z-index:4}.pr-page-toolbar{margin-bottom:10px}.pr-page-toolbar label{font-size:7px}#practice-page-select{max-width:47vw;font-size:9px;padding-top:5px;padding-bottom:5px}#practice-enlarge{font-size:9px;padding:6px 0}.pr-card-stage{margin:0 9px 12px 0}.pr-next-card{inset:9px -9px -9px 9px}.pr-next-card span{display:none}.pr-page figcaption{font-size:8px;padding:7px 10px;min-height:27px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}.pr-filmstrip{position:absolute;left:0;right:145px;bottom:8px;min-height:29px;padding:0;gap:4px}.pr-filmstrip button{width:34px;min-width:34px;height:24px}.pr-filmstrip span{font-size:5px;padding:1px}.pr-page-nav{justify-content:flex-end;gap:10px;margin-top:13px}#practice-position{font-size:12px;min-width:43px;letter-spacing:.6px}.pr-page-nav .pr-round{width:25px;height:25px;font-size:14px}.pr-transcript,.pr-source{display:none}.pr-narrative{order:2;width:100%;padding-bottom:60svh}.pr-step{min-height:48svh;justify-content:center;padding:6vh 0}.pr-step h3{font-size:28px;line-height:1.6;margin:16px 0}.pr-step p{font-size:13px;line-height:2}.pr-step-kicker{font-size:8px}.pr-view-source{font-size:9px;margin-top:16px}}
 @media(prefers-reduced-motion:reduce){.pr-scroll{scroll-behavior:auto}.pr-step,.pr-step h3,.pr-step p,.pr-card-stage,.pr-header-progress span,#practice-outline button,.pr-filmstrip button{transition:none;transform:none}.pr-step{opacity:1}.pr-next-card{transform:none}}
+
+/* Store document images are exported without the practice deck's crop. */
+.pr-store-document #practice-image,
+.pr-store-document #practice-page-image .pr-outgoing {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+@media (max-width: 760px) {
+  .pr-store-document #practice-original {
+    display: inline-block;
+    margin: 2px 0 0;
+  }
+  .pr-store-document .pr-visual {
+    top: 81px;
+  }
+}
+
+#practice-original[hidden] { display: none; }
+.pr-step video { display: block; width: 100%; margin-top: 16px; border-radius: 8px; }
+.pr-document-sources { padding-left: 1.25rem; font-size: 13px; line-height: 2; }
+.pr-document-sources a { text-decoration: underline; text-underline-offset: 3px; }
