@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>設計家 Homestyler｜Howard Lo</title>
+<link rel="stylesheet" href="case.css">
+<script src="screens.js?v=hci-cis-1" defer></script>
+<script src="gallery.js" defer></script>
+</head>
+<body>
+<header class="wrap top">
+<a href="../index.html?v=homestyler-1#work">← 返回作品集</a>
+<a href="https://www.homestyler.com/?lang=zh_TW" target="_blank" rel="noopener">Homestyler 官網 ↗</a>
+</header>
+<main>
+<section class="intro">
+<div>
+<p class="label">數位產品 / WEB ＋ APP</p>
+<h1>設計家<br><em>Homestyler</em></h1>
+<p>從找靈感、選擇設計師，到確認量房與接收圖紙，讓消費者和設計師在同一個專案中推進裝修工作。</p>
+<a href="#screens">瀏覽設計稿 ↓</a>
+</div>
+
+</section>
+<div class="wrap"><div class="chapter-nav"><h2 id="screen-heading">瀏覽設計稿</h2><div><button type="button" data-slide="-1" aria-label="向左瀏覽章節">←</button> <button type="button" data-slide="1" aria-label="向右瀏覽章節">→</button></div></div></div>
+<nav id="screens" aria-labelledby="screen-heading" tabindex="0"></nav>
+<div class="wrap">
+<div id="chapters"></div>
+<footer><p><a target="_blank" rel="noopener" hidden>查看 HCI 團隊原始報告 PDF ↗</a></p><a href="https://home.163.com/16/0927/03/C1UIOQ5L001081N7.html" target="_blank" rel="noopener">延伸閱讀 · 網易家居 2016 年報導 ↗</a></footer>
+</div>
+</main>
+<dialog aria-labelledby="image-label">
+<div class="viewer-bar"><span id="image-label" aria-live="polite"></span><button id="close" type="button" aria-label="關閉圖片瀏覽">關閉 ×</button></div>
+<div class="stage" tabindex="0" aria-label="設計稿，可捲動查看長頁面"><img id="full" alt=""></div>
+<div class="controls"><button id="prev" type="button" aria-label="上一張">←</button><div class="strip" aria-label="設計稿縮圖"></div><button id="next" type="button" aria-label="下一張">→</button></div>
+</dialog>
+</body>
+</html>
